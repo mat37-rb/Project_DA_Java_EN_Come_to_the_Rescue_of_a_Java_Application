@@ -12,7 +12,8 @@ public class SaveSymptomDataToFile implements ISymptomWriter {
 	
 	/**
 	 * 
-	 * @param filepath a full or partial path to file with symptom strings in it, one per line
+	 * @param filepath a full or partial path to file containing a set of symptom strings
+	 *  without duplicate and how many there are, one per line
 	 */
 	public SaveSymptomDataToFile (String filepath) {
 		this.filepath = filepath;
@@ -25,14 +26,12 @@ public class SaveSymptomDataToFile implements ISymptomWriter {
 					for (Map.Entry<String, Integer> entry: sortedMap.entrySet() ) {
 						String key = entry.getKey();
 						Integer value = entry.getValue();
-//					System.out.print("Le symptôme " + key.toUpperCase());
-//					System.out.println(" apparaît " + value + " fois");
-						bufferedWriter.write("Le symptôme " + key.toUpperCase());
-						bufferedWriter.write(" apparaît " + value + " fois");
+//					System.out.println(key.toUpperCase() + " : " + value);
+						bufferedWriter.write(key.toUpperCase() + " : " + value);
 						bufferedWriter.newLine();
 					}
-						bufferedWriter.newLine();
-						bufferedWriter.write("Ce fichier contient " + sortedMap.size() + " symptômes différents");
+//						bufferedWriter.newLine();
+//						bufferedWriter.write("Ce fichier contient " + sortedMap.size() + " symptômes différents");
 						bufferedWriter.close();
 			} catch (IOException e) {
 				e.printStackTrace();

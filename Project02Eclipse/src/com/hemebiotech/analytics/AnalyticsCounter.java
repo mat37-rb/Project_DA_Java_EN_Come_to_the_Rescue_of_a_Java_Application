@@ -1,43 +1,41 @@
 package com.hemebiotech.analytics;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.FileWriter;
+import java.util.List;
+import java.util.TreeMap;
 
 public class AnalyticsCounter {
-	private static int headacheCount = 0;	// initialize to 0
-	private static int rashCount = 0;		// initialize to 0
-	private static int pupilCount = 0;		// initialize to 0
 	
-	public static void main(String args[]) throws Exception {
-		// first get input
-		BufferedReader reader = new BufferedReader (new FileReader("symptoms.txt"));
-		String line = reader.readLine();
+	private ISymptomReader symptomReader;
+	private ISymptomWriter symptomWriter;
+	/** 
+	 * @param symptomReader et symptomWriter sont des variables de type
+	 * Interface qui vont permettre de récupérer les chemins pour
+	 *  le fichier à lire et celui à écrire
+	 */
 
-		int i = 0;	// set i to 0
-		int headCount = 0;	// counts headaches
-		while (line != null) {
-			i++;	// increment i
-			System.out.println("symptom from file: " + line);
-			if (line.equals("headache")) {
-				headCount++;
-				System.out.println("number of headaches: " + headCount);
+	public AnalyticsCounter (ISymptomReader symptomReader,
+							 ISymptomWriter symptomWriter) {
+		this.symptomReader = symptomReader;
+		this.symptomWriter = symptomWriter;
+	}
+	// Méthode pour lire le fichier et l'ajouter à une liste
+	public List<String> getSymptoms() {
+		return symptomReader.GetSymptoms();
+	}
+	// Méthode pour écrire dans le ficher
+	public void saveSymptoms (TreeMap<String, Integer> symptomsMap) {
+		symptomWriter.SaveSymptoms(symptomsMap);
+	}
+	// Méthode pour trier, quantifier et ordonner les symptômes
+	public TreeMap<String, Integer> mapSymptoms(List<String> symptomList) {
+		TreeMap<String, Integer> mapSymptoms = new TreeMap<>();		
+		for (String element : symptomList) {
+			if (!mapSymptoms.containsKey(element)) {
+				mapSymptoms.put(element, 1);
+			} else {
+				mapSymptoms.put(element, mapSymptoms.get(element) + 1);
 			}
-			else if (line.equals("rush")) {
-				rashCount++;
-			}
-			else if (line.contains("pupils")) {
-				pupilCount++;
-			}
-
-			line = reader.readLine();	// get another symptom
 		}
-		
-		// next generate output
-		FileWriter writer = new FileWriter ("result.out");
-		writer.write("headache: " + headacheCount + "\n");
-		writer.write("rash: " + rashCount + "\n");
-		writer.write("dialated pupils: " + pupilCount + "\n");
-		writer.close();
+		return mapSymptoms;
 	}
 }
