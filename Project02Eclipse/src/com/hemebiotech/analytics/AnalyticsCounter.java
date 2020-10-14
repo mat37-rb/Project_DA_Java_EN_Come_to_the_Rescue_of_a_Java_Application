@@ -9,8 +9,8 @@ public class AnalyticsCounter {
 	private ISymptomWriter symptomWriter;
 	/** 
 	 * @param symptomReader et symptomWriter sont des variables de type
-	 * Interface qui vont permettre de récupérer les chemins pour
-	 *  le fichier à lire et celui à écrire
+	 * Interface qui vont permettre de recuperer les chemins pour
+	 *  le fichier a lire et celui à ecrire
 	 */
 
 	public AnalyticsCounter (ISymptomReader symptomReader,
@@ -18,15 +18,24 @@ public class AnalyticsCounter {
 		this.symptomReader = symptomReader;
 		this.symptomWriter = symptomWriter;
 	}
-	// Méthode pour lire le fichier et l'ajouter à une liste
+	/**
+	 *  Methode pour lire le fichier et l'ajouter à une liste
+	 * @return Liste des symptômes et ces doublons
+	 */
 	public List<String> getSymptoms() {
 		return symptomReader.GetSymptoms();
 	}
-	// Méthode pour écrire dans le ficher
+	/**
+	 *  Methode pour ecrire dans le ficher
+	 * @param symptomsMap
+	 */
 	public void saveSymptoms (TreeMap<String, Integer> symptomsMap) {
 		symptomWriter.SaveSymptoms(symptomsMap);
 	}
-	// Méthode pour trier, quantifier et ordonner les symptômes
+	/**
+	 *  Methode pour trier, quantifier et ordonner les symptomes
+	 * @param mapSymptoms
+	 */
 	public TreeMap<String, Integer> mapSymptoms(List<String> symptomList) {
 		TreeMap<String, Integer> mapSymptoms = new TreeMap<>();		
 		for (String element : symptomList) {
