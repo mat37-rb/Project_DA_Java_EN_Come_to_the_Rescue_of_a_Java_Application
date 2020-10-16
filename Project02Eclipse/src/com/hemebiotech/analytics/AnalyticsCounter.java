@@ -2,7 +2,11 @@ package com.hemebiotech.analytics;
 
 import java.util.List;
 import java.util.TreeMap;
-
+/**
+ * Récupérer une liste de symptomes et gérer les doublons
+ * @author mat37
+ *
+ */
 public class AnalyticsCounter {
 	
 	private ISymptomReader symptomReader;
@@ -23,14 +27,14 @@ public class AnalyticsCounter {
 	 * @return Liste des symptômes et ces doublons
 	 */
 	public List<String> getSymptoms() {
-		return symptomReader.GetSymptoms();
+		return symptomReader.getSymptoms();
 	}
 	/**
 	 *  Methode pour ecrire dans le ficher
 	 * @param symptomsMap
 	 */
 	public void saveSymptoms (TreeMap<String, Integer> symptomsMap) {
-		symptomWriter.SaveSymptoms(symptomsMap);
+		symptomWriter.saveSymptoms(symptomsMap);
 	}
 	/**
 	 *  Methode pour trier, quantifier et ordonner les symptomes

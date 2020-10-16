@@ -7,5 +7,5 @@ public interface ISymptomWriter {
 
 	 * @return an ordonned map of all Symptoms obtained from a listing
 	 */
-	 void SaveSymptoms (TreeMap<String, Integer> symptomsMap);
+	 void saveSymptoms (TreeMap<String, Integer> symptomsMap);
 }
